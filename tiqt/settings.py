@@ -21,13 +21,14 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 DATABASES = {
-    'default': dj_database_url.config(
-        config('DATABASE_URL'),
-        default='sqlite:////tmp/db.sqlite3'
-    )
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
 
-ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'core.User'
+
+ALLOWED_HOSTS = ['10.0.0.97', '127.0.0.1']
+
+STATIC_URL = '/static/'
 
 
 # Application definition
@@ -37,11 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # My apps
+    'tiqt.apps.core',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -60,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
