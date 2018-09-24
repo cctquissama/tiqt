@@ -7,12 +7,20 @@ verify_ssl = true
 prospector = "*"
 "autopep8" = "*"
 rope = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
+model-mommy = "*"
+pytest-sugar = "*"
+pytest-xdist = "*"
 
 [packages]
 django = "*"
 python-decouple = "*"
 dj-database-url = "*"
 "psycopg2" = "*"
+django-guardian = "*"
+"django-tables2" = "*"
 
 [requires]
 python_version = "3.7"

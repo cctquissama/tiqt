@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 # Create your models here.
 
@@ -37,26 +38,34 @@ class Setor(models.Model):
 
 class Ticket(models.Model):
     ABERTO = 0
-    ATENDIMENTO = 1
+    EM_ATENDIMENTO = 1
     ENCERRADO = 2
     CANCELADO = 3
 
     STATUS = (
         (ABERTO, 'Aberto'),
-        (ATENDIMENTO, 'Em atendimento'),
+        (EM_ATENDIMENTO, 'Em atendimento'),
         (ENCERRADO, 'Encerrado'),
         (CANCELADO, 'Cancelado')
     )
 
     departamento = models.ForeignKey(Departamento, on_delete=models.PROTECT)
-    responsavel = models.ForeignKey(User, on_delete=models.PROTECT)
+    responsavel = models.ForeignKey(
+        User, on_delete=models.PROTECT, null=True, blank=True, related_name='responsavel_por')
     criado_em = models.DateTimeField(auto_now=True)
+    iniciado_em = models.DateTimeField(null=True, blank=True)
     setor = models.ForeignKey(Setor, on_delete=models.PROTECT)
     status = models.SmallIntegerField(choices=STATUS, default=ABERTO)
     patrimonio = models.CharField(max_length=5)
 
     class Meta:
         ordering = ["-criado_em"]
+
+    def iniciar_atendimento(self, user):
+        self.responsavel = user
+        self.status = self.EM_ATENDIMENTO
+        self.iniciado_em = timezone.localtime()
+        self.save()
 
 
 class Comentario(models.Model):
