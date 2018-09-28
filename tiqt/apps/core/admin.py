@@ -21,6 +21,9 @@ class ComentarioInline(admin.TabularInline):
 
 class TicketAdmin(admin.ModelAdmin):
     inlines = [ComentarioInline]
+    exclude = ('criado_por',)
+    list_display = ('id', 'departamento', 'setor', 'status',
+                    'patrimonio', 'responsavel')
 
 
 admin.site.register(User, UserAdmin)

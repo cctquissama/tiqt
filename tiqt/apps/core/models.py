@@ -67,6 +67,10 @@ class Ticket(models.Model):
         self.iniciado_em = timezone.localtime()
         self.save()
 
+    def get_absolute_url(self):
+        from django.shortcuts import reverse
+        return reverse("ticket_detail", kwargs={"pk": self.pk})
+
 
 class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)

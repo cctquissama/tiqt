@@ -24,6 +24,8 @@ DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL'))
 }
 
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+
 AUTH_USER_MODEL = 'core.User'
 
 ALLOWED_HOSTS = ['10.0.0.97', '127.0.0.1']
@@ -40,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd party apps
+    'material',
+    'django_tables2',
     # My apps
     'tiqt.apps.core',
 ]

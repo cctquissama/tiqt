@@ -21,6 +21,7 @@ dj-database-url = "*"
 "psycopg2" = "*"
 django-guardian = "*"
 "django-tables2" = "*"
+django-material = "*"
 
 [requires]
 python_version = "3.7"

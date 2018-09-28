@@ -19,6 +19,10 @@ class TestTicket:
         assert ticket.status == Ticket.EM_ATENDIMENTO, 'Should change state when accepted'
         assert ticket.iniciado_em is not None, 'Should not be None after ticket is accepted'
 
+    def test_absolute_url(self):
+        ticket = mommy.make('core.Ticket')
+        assert ticket.get_absolute_url() == '/ticket/1/'
+
 
 def test_departamento_str():
     dep = mommy.make('core.Departamento')

@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
+from tiqt.apps.core import views
 
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home'),
+    path('ticket/new/', views.NewTicketView.as_view(), name='new_ticket'),
+    path('ticket/<int:pk>/', views.TicketDetailView.as_view(), name='ticket_detail'),
+    path('ticket/<int:pk>/update/',
+         views.TicketUpdateView.as_view(), name='ticket_update'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     path('admin/', admin.site.urls),
 ]
