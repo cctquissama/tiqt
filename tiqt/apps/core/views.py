@@ -28,13 +28,13 @@ class HomeView(LoginRequiredMixin, MultiTableMixin, TemplateView):
 class NewTicketView(LoginRequiredMixin, CreateView):
     template_name = 'core/ticket_form.html'
     model = Ticket
-    fields = ['departamento', 'responsavel', 'setor', 'status', 'patrimonio']
+    fields = ['departamento', 'setor', 'patrimonio']
 
 
 class TicketUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'core/ticket_form.html'
     model = Ticket
-    fields = ['departamento', 'responsavel', 'setor', 'status', 'patrimonio']
+    fields = ['departamento', 'setor', 'patrimonio']
 
 
 class TicketDetailView(LoginRequiredMixin, DetailView):

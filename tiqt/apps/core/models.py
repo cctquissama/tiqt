@@ -51,11 +51,12 @@ class Ticket(models.Model):
 
     departamento = models.ForeignKey(Departamento, on_delete=models.PROTECT)
     responsavel = models.ForeignKey(
-        User, on_delete=models.PROTECT, null=True, blank=True, related_name='responsavel_por')
-    criado_em = models.DateTimeField(auto_now=True)
-    iniciado_em = models.DateTimeField(null=True, blank=True)
+        User, on_delete=models.PROTECT, null=True, blank=True, related_name='responsavel_por', editable=False)
+    criado_em = models.DateTimeField(auto_now=True, editable=False)
+    iniciado_em = models.DateTimeField(null=True, blank=True, editable=False)
     setor = models.ForeignKey(Setor, on_delete=models.PROTECT)
-    status = models.SmallIntegerField(choices=STATUS, default=ABERTO)
+    status = models.SmallIntegerField(
+        choices=STATUS, default=ABERTO, editable=False)
     patrimonio = models.CharField(max_length=5)
 
     class Meta:
