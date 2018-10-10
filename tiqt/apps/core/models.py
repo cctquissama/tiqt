@@ -58,6 +58,7 @@ class Ticket(models.Model):
     status = models.SmallIntegerField(
         choices=STATUS, default=ABERTO, editable=False)
     patrimonio = models.CharField(max_length=5)
+    contato = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         ordering = ["-criado_em"]
