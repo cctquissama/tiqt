@@ -24,6 +24,8 @@ urlpatterns = [
     path('ticket/<int:pk>/', views.TicketDetailView.as_view(), name='ticket_detail'),
     path('ticket/<int:pk>/update/',
          views.TicketUpdateView.as_view(), name='ticket_update'),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/login/',
+         auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
+    path('accounts/logout', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 ]

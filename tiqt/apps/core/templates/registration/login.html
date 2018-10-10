@@ -2,10 +2,14 @@
 {% load material_form %}
 
 {% block content %}
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {% form form=form %}{% endform %}
-    <input type="submit" value="Entrar" class="btn">
-    <input type="hidden" name="next" value="{{ next }}">
-</form>
+<div class="row section">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {% form form=form %}{% endform %}
+      <input type="submit" value="Entrar" class="btn right">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+</div>
 {% endblock content %}
