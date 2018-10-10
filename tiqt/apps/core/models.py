@@ -77,3 +77,9 @@ class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     criado_em = models.DateTimeField(auto_now=True)
     texto = models.TextField()
+
+    class Meta:
+        ordering = ["-criado_em"]
+
+    def __str__(self):
+        return self.texto

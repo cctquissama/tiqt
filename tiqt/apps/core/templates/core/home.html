@@ -2,5 +2,14 @@
 {% load django_tables2 %}
 
 {% block content %}
-    {% for table in tables %}{% render_table table %}{% endfor %}
+<div>
+  <h5>Meus Chamados:</h5>
+  {% render_table tables.0 %}
+  <div class="divider"></div>
+</div>
+<div class="section">
+  <h5>Chamados Abertos:</h5>
+  {% render_table tables.1 %}
+  <div class="divider"></div>
+</div>
 {% endblock content %}

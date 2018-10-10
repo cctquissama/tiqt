@@ -4,6 +4,7 @@
 {% block content %}
 <form method="post"> {% csrf_token %}
     {% form form=form %}{% endform %}
-    <input type="submit" value="Salvar" class="btn">
+    <button class="btn" type="submit">Salvar</button>
+    <a href="/" class="btn right red lighten-1">Cancelar</a>
 </form>
 {% endblock content %}

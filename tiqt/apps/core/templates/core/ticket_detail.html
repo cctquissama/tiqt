@@ -1,5 +1,31 @@
 {% extends 'base.html' %}
+{% load material_form %}
 
 {% block content %}
-Great!
+<div class="row">
+  <div class="col l8 m8">
+    <form method="post"> {% csrf_token %}
+    {% form form=comment_form %}{% endform %}
+    <button class="btn" type="submit">Salvar</button>
+    </form>
+    
+    {% for comment in comments %}
+    <div class="section">
+      <div class="divider"></div>
+      <p>{{ comment }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col l4 m4 z-depth-1">
+    <p><a class="right teal-text" href="{% url 'ticket_update' object.id %}"><i class="material-icons">edit</i></a></p>
+    <H5>Detalhes:</H5>
+    <p><b>Número: </b>{{ object.id }}</p>
+    <p><b>Responsável: </b>{{ object.responsavel }}</p>
+    <p><b>Criado em: </b>{{ object.criado_em|date:"d/m/y à\s H:i" }}</p>
+    <p><b>Iniciado em: </b>{{ object.iniciado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
+    <p><b>Setor: </b>{{ object.setor }}</p>
+    <p><b>Status: </b>{{ object.get_status_display }}</p>
+    <p><b>Patrimonio: </b>{{ object.patrimonio }}</p>
+  </div>
+</div>
 {% endblock content %}
