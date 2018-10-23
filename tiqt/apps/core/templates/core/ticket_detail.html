@@ -29,7 +29,7 @@
     <p><a class="right teal-text" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></p>
     <H5>Detalhes:</H5>
     <p><b>Número: </b>{{ object.id }}</p>
-    <p><b>Responsável: </b>{{ object.responsavel }}</p>
+    <p><b>Responsável: </b>{{ object.responsavel|default_if_none:"- - -" }}</p>
     <p><b>Criado em: </b>{{ object.criado_em|date:"d/m/y à\s H:i" }}</p>
     <p><b>Iniciado em: </b>{{ object.iniciado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
     <p><b>Setor: </b>{{ object.setor }}</p>

@@ -60,7 +60,7 @@ class Ticket(models.Model):
     contato = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
-        ordering = ["-criado_em"]
+        ordering = ["criado_em"]
 
     def iniciar_atendimento(self, user):
         self.responsavel = user
