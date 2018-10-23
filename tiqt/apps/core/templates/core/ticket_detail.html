@@ -4,20 +4,29 @@
 {% block content %}
 <div class="row">
   <div class="col l8 m8">
-    <form method="post"> {% csrf_token %}
-    {% form form=comment_form %}{% endform %}
+    <form method="post" action="{% url 'ticket_comment' object.id %}"> {% csrf_token %}
+      {% form form=comment_form %}{% endform %}
     <button class="btn" type="submit">Salvar</button>
     </form>
     
     {% for comment in comments %}
     <div class="section">
+      <div class="row">
+        <div class="col l3">
+          <b>Em:</b> {{ comment.criado_em|date:"d/m/y à\s H:i" }}</br>
+          <b>Por:</b> Anonimo
+        </div>
+        <div class="col l9">
+          <p>{{ comment }}</p>
+        </div>
+      </div>
       <div class="divider"></div>
-      <p>{{ comment }}</p>
     </div>
     {% endfor %}
   </div>
   <div class="col l4 m4 z-depth-1">
     <p><a class="right teal-text" href="{% url 'ticket_update' object.id %}"><i class="material-icons">edit</i></a></p>
+    <p><a class="right teal-text" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></p>
     <H5>Detalhes:</H5>
     <p><b>Número: </b>{{ object.id }}</p>
     <p><b>Responsável: </b>{{ object.responsavel }}</p>
@@ -26,6 +35,7 @@
     <p><b>Setor: </b>{{ object.setor }}</p>
     <p><b>Status: </b>{{ object.get_status_display }}</p>
     <p><b>Patrimonio: </b>{{ object.patrimonio }}</p>
+    <p><b>Contato: </b>{{ object.contato|default_if_none:"- - -" }}</p>
   </div>
 </div>
 {% endblock content %}

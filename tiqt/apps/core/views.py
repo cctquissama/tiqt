@@ -46,3 +46,20 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
             Comentario, exclude=('criado_em', 'ticket', ))
         context["comments"] = self.object.comentario_set.all()
         return context
+
+
+class TicketAcceptView(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        ticket = Ticket.objects.get(pk=pk)
+        ticket.iniciar_atendimento(request.user)
+        return HttpResponseRedirect(reverse("ticket_detail", kwargs={"pk": pk}))
+
+
+class CommentView(LoginRequiredMixin, View):
+
+    def post(self, request, ticket_pk):
+        ticket = Ticket.objects.get(pk=ticket_pk)
+        comment = Comentario(ticket=ticket, texto=request.POST['texto'])
+        comment.save()
+        return HttpResponseRedirect(reverse("ticket_detail", kwargs={"pk": ticket_pk}))

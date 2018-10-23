@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-
 # Create your models here.
 
 
@@ -52,7 +51,7 @@ class Ticket(models.Model):
     departamento = models.ForeignKey(Departamento, on_delete=models.PROTECT)
     responsavel = models.ForeignKey(
         User, on_delete=models.PROTECT, null=True, blank=True, related_name='responsavel_por', editable=False)
-    criado_em = models.DateTimeField(auto_now=True, editable=False)
+    criado_em = models.DateTimeField(auto_now_add=True, editable=False)
     iniciado_em = models.DateTimeField(null=True, blank=True, editable=False)
     setor = models.ForeignKey(Setor, on_delete=models.PROTECT)
     status = models.SmallIntegerField(
@@ -76,7 +75,7 @@ class Ticket(models.Model):
 
 class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    criado_em = models.DateTimeField(auto_now=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
     texto = models.TextField()
 
     class Meta:
