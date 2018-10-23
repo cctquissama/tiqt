@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load django_tables2 %}}
+
+{% block content %}
+  <div>
+    <h5>Meus Chamados:</h5>
+    {% render_table table %}
+    <div class="divider"></div>
+  </div>
+{% endblock content %}

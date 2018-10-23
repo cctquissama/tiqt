@@ -1,9 +1,12 @@
+from django.views import View
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelform_factory
+from django.shortcuts import reverse
+from django.http import HttpResponseRedirect
 
-from django_tables2 import MultiTableMixin
+from django_tables2 import SingleTableMixin
 
 from tiqt.apps.core.models import Ticket
 from tiqt.apps.core.models import Comentario
@@ -11,17 +14,28 @@ from tiqt.apps.core.tables import TicketTable
 # Create your views here.
 
 
-class HomeView(LoginRequiredMixin, MultiTableMixin, TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'core/home.html'
+
+
+class MyTicketsView(LoginRequiredMixin, SingleTableMixin, TemplateView):
+    template_name = 'core/tickets_list.html'
     table_pagination = {
-        'per_page': 10
+        'per_page': 5
     }
 
-    def get_tables(self):
-        return [
-            TicketTable(Ticket.objects.filter(responsavel=self.request.user)),
-            TicketTable(Ticket.objects.filter(responsavel=None))
-        ]
+    def get_table(self, **kwargs):
+        return TicketTable(Ticket.objects.filter(responsavel=self.request.user))
+
+
+class OpenTicketsView(LoginRequiredMixin, SingleTableMixin, TemplateView):
+    template_name = 'core/tickets_list.html'
+    table_pagination = {
+        'per_page': 5
+    }
+
+    def get_table(self, **kwargs):
+        return TicketTable(Ticket.objects.filter(status=Ticket.ABERTO))
 
 
 class NewTicketView(LoginRequiredMixin, CreateView):

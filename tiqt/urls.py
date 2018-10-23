@@ -21,7 +21,10 @@ from tiqt.apps.core import views
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('ticket/new/', views.NewTicketView.as_view(), name='new_ticket'),
-    path('ticket/<int:pk>/', views.TicketDetailView.as_view(), name='ticket_detail'),
+    path('ticket/my/', views.MyTicketsView.as_view(), name='my_tickets'),
+    path('ticket/open/', views.OpenTicketsView.as_view(), name='open_tickets'),
+    path('ticket/<int:pk>/',
+         views.TicketDetailView.as_view(), name='ticket_detail'),
     path('ticket/<int:pk>/update/',
          views.TicketUpdateView.as_view(), name='ticket_update'),
     path('ticket/<int:pk>/accept',
@@ -29,7 +32,8 @@ urlpatterns = [
     path('ticket/<int:ticket_pk>/comment',
          views.CommentView.as_view(), name='ticket_comment'),
     path('accounts/login/',
-         auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
+         auth_views.LoginView.as_view(redirect_authenticated_user=True),
+         name='login'),
     path('accounts/logout', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 ]
