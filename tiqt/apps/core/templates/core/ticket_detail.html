@@ -38,10 +38,14 @@
     </div>
   </div>
   <div class="fixed-action-btn">
-    <a class="btn-floating btn-large red" href="{% url 'ticket_update' object.id %}"><i class="material-icons large">edit</i></a>
+    <a class="btn-floating btn-large red {% if object.encerrado_em %} disabled {% endif %}" href="{% url 'ticket_update' object.id %}"><i class="material-icons large">edit</i></a>
     <ul>
-      <li><a class="btn-floating teal" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></li>
-      <li><a class="btn-floating teal" href="{% url 'ticket_close' object.id %}"><i class="material-icons">check</i></a></li>
+      {% if not object.responsavel %}
+	<li><a class="btn-floating teal" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></li>
+      {% endif %}
+      {% if object.responsavel and not object.encerrado_em %}
+	<li><a class="btn-floating teal" href="{% url 'ticket_close' object.id %}"><i class="material-icons">check</i></a></li>
+      {% endif %}
     </ul>
   </div>
 {% endblock content %}
