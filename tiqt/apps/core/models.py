@@ -50,9 +50,11 @@ class Ticket(models.Model):
 
     departamento = models.ForeignKey(Departamento, on_delete=models.PROTECT)
     responsavel = models.ForeignKey(
-        User, on_delete=models.PROTECT, null=True, blank=True, related_name='responsavel_por', editable=False)
+        User, on_delete=models.PROTECT, null=True, blank=True,
+        related_name='responsavel_por', editable=False)
     criado_em = models.DateTimeField(auto_now_add=True, editable=False)
     iniciado_em = models.DateTimeField(null=True, blank=True, editable=False)
+    encerrado_em = models.DateTimeField(null=True, blank=True, editable=False)
     setor = models.ForeignKey(Setor, on_delete=models.PROTECT)
     status = models.SmallIntegerField(
         choices=STATUS, default=ABERTO, editable=False)
@@ -66,6 +68,11 @@ class Ticket(models.Model):
         self.responsavel = user
         self.status = self.EM_ATENDIMENTO
         self.iniciado_em = timezone.localtime()
+        self.save()
+
+    def encerrar_atendimento(self):
+        self.status = self.ENCERRADO
+        self.encerrado_em = timezone.localtime()
         self.save()
 
     def get_absolute_url(self):

@@ -2,44 +2,46 @@
 {% load material_form %}
 
 {% block content %}
-<div class="row">
-  <div class="col l8 m8">
-    <form method="post" action="{% url 'ticket_comment' object.id %}"> {% csrf_token %}
-      {% form form=comment_form %}{% endform %}
-    <button class="btn" type="submit">Salvar</button>
-    </form>
-    
-    {% for comment in comments %}
-    <div class="section">
-      <div class="row">
-        <div class="col l3">
-          <b>Em:</b> {{ comment.criado_em|date:"d/m/y à\s H:i" }}</br>
-          <b>Por:</b> Anonimo
-        </div>
-        <div class="col l9">
-          <p>{{ comment }}</p>
-        </div>
-      </div>
-      <div class="divider"></div>
+  <div class="row">
+    <div class="col l8 m8">
+      <form method="post" action="{% url 'ticket_comment' object.id %}"> {% csrf_token %}
+	{% form form=comment_form %}{% endform %}
+	<button class="btn" type="submit">Salvar</button>
+      </form>
+      
+      {% for comment in comments %}
+	<div class="section">
+	  <div class="row">
+            <div class="col l3">
+              <b>Em:</b> {{ comment.criado_em|date:"d/m/y à\s H:i" }}</br>
+              <b>Por:</b> Anonimo
+            </div>
+            <div class="col l9">
+              <p>{{ comment }}</p>
+            </div>
+	  </div>
+	  <div class="divider"></div>
+	</div>
+      {% endfor %}
     </div>
-    {% endfor %}
+    <div class="col l4 m4 z-depth-1">
+      <H5>Detalhes:</H5>
+      <p><b>Número: </b>{{ object.id }}</p>
+      <p><b>Responsável: </b>{{ object.responsavel|default_if_none:"- - -" }}</p>
+      <p><b>Criado em: </b>{{ object.criado_em|date:"d/m/y à\s H:i" }}</p>
+      <p><b>Iniciado em: </b>{{ object.iniciado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
+      <p><b>Encerrado em: </b>{{ object.encerrado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
+      <p><b>Setor: </b>{{ object.setor }}</p>
+      <p><b>Status: </b>{{ object.get_status_display }}</p>
+      <p><b>Patrimonio: </b>{{ object.patrimonio }}</p>
+      <p><b>Contato: </b>{{ object.contato|default_if_none:"- - -" }}</p>
+    </div>
   </div>
-  <div class="col l4 m4 z-depth-1">
-    <H5>Detalhes:</H5>
-    <p><b>Número: </b>{{ object.id }}</p>
-    <p><b>Responsável: </b>{{ object.responsavel|default_if_none:"- - -" }}</p>
-    <p><b>Criado em: </b>{{ object.criado_em|date:"d/m/y à\s H:i" }}</p>
-    <p><b>Iniciado em: </b>{{ object.iniciado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
-    <p><b>Setor: </b>{{ object.setor }}</p>
-    <p><b>Status: </b>{{ object.get_status_display }}</p>
-    <p><b>Patrimonio: </b>{{ object.patrimonio }}</p>
-    <p><b>Contato: </b>{{ object.contato|default_if_none:"- - -" }}</p>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="{% url 'ticket_update' object.id %}"><i class="material-icons large">edit</i></a>
+    <ul>
+      <li><a class="btn-floating teal" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></li>
+      <li><a class="btn-floating teal" href="{% url 'ticket_close' object.id %}"><i class="material-icons">check</i></a></li>
+    </ul>
   </div>
-</div>
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="{% url 'ticket_update' object.id %}"><i class="material-icons large">edit</i></a>
-  <ul>
-    <li><a class="btn-floating teal" href="{% url 'ticket_accept' object.id %}"><i class="material-icons">playlist_add</i></a></li>
-  </ul>
-</div>
 {% endblock content %}
