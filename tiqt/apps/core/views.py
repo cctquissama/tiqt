@@ -95,6 +95,8 @@ class CommentView(LoginRequiredMixin, View):
 
     def post(self, request, ticket_pk):
         ticket = Ticket.objects.get(pk=ticket_pk)
-        comment = Comentario(ticket=ticket, texto=request.POST['texto'])
+        comment = Comentario(
+            ticket=ticket, texto=request.POST['texto'], autor=request.user)
         comment.save()
-        return HttpResponseRedirect(reverse("ticket_detail", kwargs={"pk": ticket_pk}))
+        return HttpResponseRedirect(
+            reverse("ticket_detail", kwargs={"pk": ticket_pk}))

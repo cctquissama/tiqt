@@ -84,6 +84,8 @@ class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     criado_em = models.DateTimeField(auto_now_add=True)
     texto = models.TextField()
+    autor = models.ForeignKey(
+        User, on_delete=models.PROTECT, null=True, blank=True, editable=False)
 
     class Meta:
         ordering = ["-criado_em"]

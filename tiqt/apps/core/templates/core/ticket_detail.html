@@ -14,7 +14,7 @@
 	  <div class="row">
             <div class="col l3">
               <b>Em:</b> {{ comment.criado_em|date:"d/m/y à\s H:i" }}</br>
-              <b>Por:</b> Anonimo
+              <b>Por:</b> {{ comment.autor.username|default:"Anonimo" }}
             </div>
             <div class="col l9">
               <p>{{ comment }}</p>
