@@ -23,6 +23,13 @@ class TestTicket:
         ticket = mommy.make('core.Ticket')
         assert ticket.get_absolute_url() == '/ticket/1/'
 
+    def test_user_close_ticket(self):
+        ticket = mommy.make('core.Ticket', encerrado_em=None,
+                            status=Ticket.EM_ATENDIMENTO)
+        ticket.encerrar_atendimento()
+        assert ticket.encerrado_em is not None, 'Should have a closing date'
+        assert ticket.status is Ticket.ENCERRADO
+
 
 def test_departamento_str():
     dep = mommy.make('core.Departamento')
@@ -39,3 +46,8 @@ def test_setor_str():
     setor = mommy.make('core.Setor')
     assert str(setor) == setor.nome + ' - ' + \
         setor.secretaria.sigla, 'Should return name and secretaria when cast to string'
+
+
+def test_comentario_str():
+    comentario = mommy.make('core.Comentario')
+    assert str(comentario) == comentario.texto, 'Should return texto field'
