@@ -31,6 +31,7 @@
       <p><b>Criado em: </b>{{ object.criado_em|date:"d/m/y à\s H:i" }}</p>
       <p><b>Iniciado em: </b>{{ object.iniciado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
       <p><b>Encerrado em: </b>{{ object.encerrado_em|date:"d/m/y à\s H:i"|default:"- - -" }}</p>
+      <p><b>Idade: </b>{{ object.criado_em|timesince:object.encerrado_em }}</p>
       <p><b>Setor: </b>{{ object.setor }}</p>
       <p><b>Status: </b>{{ object.get_status_display }}</p>
       <p><b>Patrimonio: </b>{{ object.patrimonio }}</p>
